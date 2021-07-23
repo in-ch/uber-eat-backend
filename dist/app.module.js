@@ -8,11 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const Joi = require("joi");
-const graphql_1 = require("@nestjs/graphql");
-const restaurant_module_1 = require("./restaurant/restaurant.module");
-const typeorm_1 = require("@nestjs/typeorm");
 const config_1 = require("@nestjs/config");
+const graphql_1 = require("@nestjs/graphql");
+const typeorm_1 = require("@nestjs/typeorm");
+const Joi = require("joi");
+const path_1 = require("path");
+const restaurant_module_1 = require("./restaurant/restaurant.module");
+const restaurant_entity_1 = require("./restaurant/entities/restaurant.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,11 +30,11 @@ AppModule = __decorate([
                     DB_PORT: Joi.string().required(),
                     DB_USERNAME: Joi.string().required(),
                     DB_PASSWORD: Joi.string().required(),
-                    DB_NAME: Joi.string().required(),
+                    DB_NAME: Joi.string().required()
                 })
             }),
             graphql_1.GraphQLModule.forRoot({
-                autoSchemaFile: true,
+                autoSchemaFile: path_1.join(process.cwd(), 'src/schema.gql'),
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
@@ -41,8 +43,9 @@ AppModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_NAME,
-                synchronize: true,
+                synchronize: process.env.NODE_ENV !== 'prod',
                 logging: true,
+                entities: [restaurant_entity_1.Restaurant]
             }),
             restaurant_module_1.RestaurantModule,
         ],

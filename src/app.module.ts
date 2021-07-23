@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import * as Joi from "joi";
-
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from "@nestjs/typeorm";
+import * as Joi from "joi";
 import { join } from 'path';
 import { RestaurantModule } from './restaurant/restaurant.module';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import { ConfigModule } from '@nestjs/config';
+import { Restaurant } from './restaurant/entities/restaurant.entity';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,11 +19,11 @@ import { ConfigModule } from '@nestjs/config';
         DB_PORT: Joi.string().required(),
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
-        DB_NAME: Joi.string().required(),
+        DB_NAME: Joi.string().required()
       })
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres', 
@@ -31,8 +32,9 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,  // postgres 모드에서는 host가 localhost일 때 password를 잘못 적어도 된다.
       database: process.env.DB_NAME,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'prod',
       logging: true,
+      entities: [Restaurant]
     }),
     RestaurantModule, // GraphQL 불러오기.
   ],
