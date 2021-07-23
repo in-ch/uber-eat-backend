@@ -5,24 +5,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
-const common_1 = require("@nestjs/common");
-const graphql_1 = require("@nestjs/graphql");
-const restaurant_module_1 = require("./restaurant/restaurant.module");
-let AppModule = class AppModule {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-AppModule = __decorate([
-    common_1.Module({
-        imports: [
-            graphql_1.GraphQLModule.forRoot({
-                autoSchemaFile: true,
-            }),
-            restaurant_module_1.RestaurantModule,
-        ],
-        controllers: [],
-        providers: [],
-    })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Restaurant = void 0;
+const graphql_1 = require("@nestjs/graphql");
+let Restaurant = class Restaurant {
+};
+__decorate([
+    graphql_1.Field(_ => String),
+    __metadata("design:type", String)
+], Restaurant.prototype, "name", void 0);
+__decorate([
+    graphql_1.Field(_ => Boolean, { nullable: true }),
+    __metadata("design:type", Boolean)
+], Restaurant.prototype, "isGood", void 0);
+Restaurant = __decorate([
+    graphql_1.ObjectType()
+], Restaurant);
+exports.Restaurant = Restaurant;
+//# sourceMappingURL=restaurant.entity.js.map
