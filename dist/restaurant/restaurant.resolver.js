@@ -27,9 +27,15 @@ let RestaurantResolver = class RestaurantResolver {
     restaurant() {
         return this.restaurantService.getAll();
     }
-    createRestaurant(createRestaurantInput) {
-        console.log(createRestaurantInput);
-        return true;
+    async createRestaurant(createRestaurantInput) {
+        try {
+            await this.restaurantService.createResturant(createRestaurantInput);
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
     }
 };
 __decorate([
@@ -49,7 +55,7 @@ __decorate([
     __param(0, graphql_1.Args()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createRestaurant_dto_1.CreateRestaurantDto]),
-    __metadata("design:returntype", Boolean)
+    __metadata("design:returntype", Promise)
 ], RestaurantResolver.prototype, "createRestaurant", null);
 RestaurantResolver = __decorate([
     graphql_1.Resolver(),

@@ -33,7 +33,7 @@ import { Restaurant } from './restaurant/entities/restaurant.entity';
       password: process.env.DB_PASSWORD,  // postgres 모드에서는 host가 localhost일 때 password를 잘못 적어도 된다.
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
-      logging: true,
+      logging: process.env.NODE_ENV !== 'prod',  // db에 있는 모든 로그 확인.
       entities: [Restaurant]
     }),
     RestaurantModule, // GraphQL 불러오기.
