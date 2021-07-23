@@ -21,9 +21,6 @@ let RestaurantResolver = class RestaurantResolver {
     constructor(restaurantService) {
         this.restaurantService = restaurantService;
     }
-    myRestaurant() {
-        return true;
-    }
     restaurant() {
         return this.restaurantService.getAll();
     }
@@ -39,12 +36,6 @@ let RestaurantResolver = class RestaurantResolver {
     }
 };
 __decorate([
-    graphql_1.Query(_ => restaurant_entity_1.Restaurant),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], RestaurantResolver.prototype, "myRestaurant", null);
-__decorate([
     graphql_1.Query(_ => [restaurant_entity_1.Restaurant]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -52,7 +43,7 @@ __decorate([
 ], RestaurantResolver.prototype, "restaurant", null);
 __decorate([
     graphql_1.Mutation(_ => Boolean),
-    __param(0, graphql_1.Args()),
+    __param(0, graphql_1.Args('input')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createRestaurant_dto_1.CreateRestaurantDto]),
     __metadata("design:returntype", Promise)

@@ -4,7 +4,6 @@ import { RestaurantService } from './restaurants.service';
 export declare class RestaurantResolver {
     private readonly restaurantService;
     constructor(restaurantService: RestaurantService);
-    myRestaurant(): boolean;
     restaurant(): Promise<Restaurant[]>;
     createRestaurant(createRestaurantInput: CreateRestaurantDto): Promise<boolean>;
 }
