@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import * as Joi from "joi";
+
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { RestaurantModule } from './restaurant/restaurant.module';
@@ -8,8 +10,16 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV === "dev" ? '.env.dev' : '.env.test',
+      envFilePath: process.env.NODE_ENV === "dev" ? '.env.dev' : '.env.test',  // node_env 모드가 dev일 경우 env.dev가 실행
       ignoreEnvFile: process.env.NODE_ENV === 'prod',
+      validationSchema: Joi.object({  // joi를 활용하여 유효성 검사
+        NODE_ENV: Joi.string().valid('dev','prod').required(),  // 이렇게 함으로써 환경 변수 마저 유효성 검사를 할 수 있음.
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.string().required(),
+        DB_USERNAME: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_NAME: Joi.string().required(),
+      })
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
