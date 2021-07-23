@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const createRestaurant_dto_1 = require("./dtos/createRestaurant.dto");
+const updateRestaurant_dto_1 = require("./dtos/updateRestaurant.dto");
 const restaurant_entity_1 = require("./entities/restaurant.entity");
 const restaurants_service_1 = require("./restaurants.service");
 let RestaurantResolver = class RestaurantResolver {
@@ -27,6 +28,16 @@ let RestaurantResolver = class RestaurantResolver {
     async createRestaurant(createRestaurantInput) {
         try {
             await this.restaurantService.createResturant(createRestaurantInput);
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+    async updateRestaurant(updateRestaurantDto) {
+        try {
+            await this.restaurantService.updateResturant(updateRestaurantDto);
             return true;
         }
         catch (e) {
@@ -48,6 +59,13 @@ __decorate([
     __metadata("design:paramtypes", [createRestaurant_dto_1.CreateRestaurantDto]),
     __metadata("design:returntype", Promise)
 ], RestaurantResolver.prototype, "createRestaurant", null);
+__decorate([
+    graphql_1.Mutation(_ => Boolean),
+    __param(0, graphql_1.Args('input')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [updateRestaurant_dto_1.UpdateRestaurantDto]),
+    __metadata("design:returntype", Promise)
+], RestaurantResolver.prototype, "updateRestaurant", null);
 RestaurantResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [restaurants_service_1.RestaurantService])

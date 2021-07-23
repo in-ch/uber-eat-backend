@@ -34,9 +34,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Restaurant.prototype, "isGood", void 0);
 __decorate([
-    graphql_1.Field(_ => Boolean),
-    typeorm_1.Column(),
+    graphql_1.Field(_ => Boolean, { defaultValue: true }),
+    typeorm_1.Column({ default: true }),
     class_validator_1.IsBoolean(),
+    class_validator_1.IsOptional(),
     __metadata("design:type", Boolean)
 ], Restaurant.prototype, "isVegan", void 0);
 __decorate([
