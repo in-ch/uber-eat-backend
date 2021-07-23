@@ -11,10 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
-const createRestaurant_dto_1 = require("./dtos/createRestaurant.dto");
+const createRestaurant_dto_1 = require("../../dtos/createRestaurant.dto");
 const restaurant_entity_1 = require("./entities/restaurant.entity");
 let RestaurantResolver = class RestaurantResolver {
     myRestaurant() {
@@ -45,7 +46,7 @@ __decorate([
     graphql_1.Mutation(_ => Boolean),
     __param(0, graphql_1.Args()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createRestaurant_dto_1.CreateRestaurantDto]),
+    __metadata("design:paramtypes", [typeof (_a = typeof createRestaurant_dto_1.CreateRestaurantDto !== "undefined" && createRestaurant_dto_1.CreateRestaurantDto) === "function" ? _a : Object]),
     __metadata("design:returntype", Boolean)
 ], RestaurantResolver.prototype, "createRestaurant", null);
 RestaurantResolver = __decorate([
