@@ -8,18 +8,19 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV === "dev" ? ".dev.env" : ".test.env" ,
+      envFilePath: process.env.NODE_ENV === "dev" ? '.env.dev' : '.env.test',
+      ignoreEnvFile: process.env.NODE_ENV === 'prod',
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres', 
-      host: 'localhost',
-      port: 5432,
-      username: 'seonginch',
-      password: 'test',  // postgres 모드에서는 host가 localhost일 때 password를 잘못 적어도 된다.
-      database: 'uber-eat',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,  // port는 number가 와야하기 때문에 +를 붙여서 강제 형변환을 했다.
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,  // postgres 모드에서는 host가 localhost일 때 password를 잘못 적어도 된다.
+      database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
     }),
