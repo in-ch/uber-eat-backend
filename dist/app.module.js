@@ -11,11 +11,16 @@ const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
 const restaurant_module_1 = require("./restaurant/restaurant.module");
 const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: process.env.NODE_ENV === "dev" ? ".dev.env" : ".test.env",
+            }),
             graphql_1.GraphQLModule.forRoot({
                 autoSchemaFile: true,
             }),
