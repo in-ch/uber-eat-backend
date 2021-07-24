@@ -1,6 +1,8 @@
 import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { BeforeInsert, Column, Entity } from 'typeorm';
+import * as bcrypt from "bcrypt";
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { Column, Entity } from 'typeorm';
+import { InternalServerErrorException } from "@nestjs/common";
 
 enum UserRole {
   Client,
@@ -25,4 +27,13 @@ export class User extends CoreEntity {
   @Column({ type: 'enum', enum: UserRole })
   @Field(_ => UserRole)
   role: UserRole;
+
+  @BeforeInsert()   // entitiy에 몬가가 들어오기 전에 실행되는 것이다.
+  async hashPassword(): Promise <void> {
+    try{
+      this.password = await bcrypt.hash(this.password, 10);
+    } catch(e){
+      throw new InternalServerErrorException();
+    }
+  }
 }

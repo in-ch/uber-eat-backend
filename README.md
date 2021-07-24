@@ -12,3 +12,12 @@
 7. 데이터 통신 방법에는 Data Mapper과 Active Record 두가지 패턴(방법)이 있다.
    Active Record는 BaseEntity롤 extends하면 사용 가능한데 작은 프로젝트에 적합하다.
    Data Mapper는 repository(Entity랑 상호작용 담당)를 사용하면 활용 가능하다.
+8. DB에 저장하고 싶으면 save()를 써야함. 근데 save() 안에 create() 함수까지 들어가야 인스텐스를 만들어서 @BeforeInsert같은 걸 쓸 수 있음.
+9. Mapped types를 사용하면 entity 파일에 db테이블(object type)과 type, dto를 모두 정의할 수 있다. 
+   ㄴ @ArgsType()를 @InputType으로 만들고 extends 시켜서 entities 파일을 받아오면 된다.
+10. @IsOptional() = 이 필드가 없다면 무시하고 진행
+11. @Field(_, => Boolean, {defaultValue:true}) -> 기본값
+    @column({default:true}) -> 기본값을 가질 수 있음.
+12. listener는 기본적으로 entity에 무슨 일이 생길 때 실행되는 것이다.
+    TypeORM doc에 listener and subscription 부분에 데코레이션이 잘 정리되어 있다.
+    db에 저장하려면 save(값)을 해야하는데 save(create(~)) 대충 이런 식으로 해줘야 인스텐스가 생성되서 먹힌다. -> 위에 정리한 @BeforeInsert같은 거 ..

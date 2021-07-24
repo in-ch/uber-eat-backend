@@ -20,7 +20,7 @@ export class UsersService {
                     error: "이미 아이디가 존재합니다.",
                 }
             } 
-            await this.users.save({email,password,role});
+            await this.users.save(this.users.create({email,password,role}));
             return {
                 ok: true,
             }
