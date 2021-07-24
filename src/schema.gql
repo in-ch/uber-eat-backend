@@ -12,10 +12,10 @@ type Query {
 }
 
 type Mutation {
-  createAccount(input: createAccountInput!): createAccountOutput!
+  createAccount(input: CreateAccountInput!): createAccountOutput!
 }
 
-input createAccountInput {
+input CreateAccountInput {
   email: String!
   password: String!
   role: String!
