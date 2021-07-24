@@ -4,8 +4,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import * as Joi from "joi";
 import { join } from 'path';
-import { RestaurantModule } from './restaurant/restaurant.module';
-import { Restaurant } from './restaurant/entities/restaurant.entity';
+import { UsersModule } from './users/users.module';
+import { CommonModule } from './common/common.module';
+import { User } from './users/entities/user.entitiy';
 
 @Module({
   imports: [
@@ -34,9 +35,11 @@ import { Restaurant } from './restaurant/entities/restaurant.entity';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: process.env.NODE_ENV !== 'prod',  // db에 있는 모든 로그 확인.
-      entities: [Restaurant]
+      entities: [User]
     }),
-    RestaurantModule, // GraphQL 불러오기.
+    // RestaurantModule,
+    UsersModule,
+    CommonModule, // GraphQL 불러오기.
   ],
   controllers: [],
   providers: [],
