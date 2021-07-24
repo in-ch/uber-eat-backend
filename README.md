@@ -21,3 +21,8 @@
 12. listener는 기본적으로 entity에 무슨 일이 생길 때 실행되는 것이다.
     TypeORM doc에 listener and subscription 부분에 데코레이션이 잘 정리되어 있다.
     db에 저장하려면 save(값)을 해야하는데 save(create(~)) 대충 이런 식으로 해줘야 인스텐스가 생성되서 먹힌다. -> 위에 정리한 @BeforeInsert같은 거 ..
+
+13. users.modules에 configService를 요청하면 nestjs가 app.modules에 있는 configModule을 인지하고 get() 함수를 통해서 설정한 값들을 가져올 수 있다.
+
+14. app.module.ts 파일에 있는 UsersModule는 정적 모듈이고 GraphQLModule은 동적 모듈이다. 차이점은 동적 모듈은 설정값이 있다는 것이다. 그리고 동적 모듈은 설정값이 적용된다음에 결국 정적 모듈이 되어서
+    app.module에서 합쳐진다. 
