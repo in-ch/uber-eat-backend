@@ -1,14 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtService } from 'src/jwt/jwt.service';
-import { User } from './entities/user.entitiy';
-import { UserResolver } from './user.resolver';
-import { UsersService } from './user.service';
+import { User } from './entities/user.entity';
+import { UserResolver } from './users.resolver';
+import { UserService } from './users.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User]), ConfigService],  // 이렇게 하면 app.module에 있는 ConfigModule에 접근이 가능하다.
-    providers: [UserResolver, UsersService, JwtService],
+  imports: [TypeOrmModule.forFeature([User])],
+  providers: [UserResolver, UserService],
 })
-
 export class UsersModule {}

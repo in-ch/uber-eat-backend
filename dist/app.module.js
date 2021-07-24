@@ -8,14 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const Joi = require("joi");
 const config_1 = require("@nestjs/config");
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("@nestjs/typeorm");
-const Joi = require("joi");
-const path_1 = require("path");
 const users_module_1 = require("./users/users.module");
 const common_module_1 = require("./common/common.module");
-const user_entitiy_1 = require("./users/entities/user.entitiy");
+const user_entity_1 = require("./users/entities/user.entity");
 const jwt_module_1 = require("./jwt/jwt.module");
 let AppModule = class AppModule {
 };
@@ -24,20 +23,19 @@ AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                envFilePath: process.env.NODE_ENV === "dev" ? '.env.dev' : '.env.test',
+                envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
                 ignoreEnvFile: process.env.NODE_ENV === 'prod',
                 validationSchema: Joi.object({
-                    NODE_ENV: Joi.string().valid('dev', 'prod').required(),
+                    NODE_ENV: Joi.string()
+                        .valid('dev', 'prod')
+                        .required(),
                     DB_HOST: Joi.string().required(),
                     DB_PORT: Joi.string().required(),
                     DB_USERNAME: Joi.string().required(),
                     DB_PASSWORD: Joi.string().required(),
                     DB_NAME: Joi.string().required(),
-                    SECRET_KEY: Joi.string().required(),
-                })
-            }),
-            graphql_1.GraphQLModule.forRoot({
-                autoSchemaFile: path_1.join(process.cwd(), 'src/schema.gql'),
+                    PRIVATE_KEY: Joi.string().required(),
+                }),
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
@@ -48,11 +46,16 @@ AppModule = __decorate([
                 database: process.env.DB_NAME,
                 synchronize: process.env.NODE_ENV !== 'prod',
                 logging: process.env.NODE_ENV !== 'prod',
-                entities: [user_entitiy_1.User]
+                entities: [user_entity_1.User],
+            }),
+            graphql_1.GraphQLModule.forRoot({
+                autoSchemaFile: true,
+            }),
+            jwt_module_1.JwtModule.forRoot({
+                privateKey: process.env.PRIVATE_KEY,
             }),
             users_module_1.UsersModule,
             common_module_1.CommonModule,
-            jwt_module_1.JwtModule,
         ],
         controllers: [],
         providers: [],
