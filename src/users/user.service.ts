@@ -6,14 +6,18 @@ import * as jwt from "jsonwebtoken";
 import { LoginInput } from "./dtos/login.dto";
 import { User } from "./entities/user.entitiy";
 import { ConfigService } from "@nestjs/config";
+import { JwtService } from "src/jwt/jwt.service";
 
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User) private readonly users: Repository<User>,
-        private readonly config: ConfigService   // users.module.ts 파일의 imports 부분에 ConfigService를 넣었기 때문에 사용할 수 있음. 
-    ) {}
+        private readonly config: ConfigService,   // users.module.ts 파일의 imports 부분에 ConfigService를 넣었기 때문에 사용할 수 있음. 
+        private readonly jwtService: JwtService  // 동적 모듈을 구현함으로써 함수 사용 가능.
+    ) {
+        this.jwtService.hello();
+    }
 
     async createAccount({email, password,role}: CreateAccountInput): Promise<{ok:boolean, error?:string}> {
         try{

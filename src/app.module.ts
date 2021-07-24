@@ -7,6 +7,7 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { CommonModule } from './common/common.module';
 import { User } from './users/entities/user.entitiy';
+import { JwtModule } from './jwt/jwt.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { User } from './users/entities/user.entitiy';
         SECRET_KEY: Joi.string().required(),
       })
     }),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot({ // GraphQL 불러오기.
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     TypeOrmModule.forRoot({
@@ -40,7 +41,8 @@ import { User } from './users/entities/user.entitiy';
     }),
     // RestaurantModule,
     UsersModule,
-    CommonModule, // GraphQL 불러오기.
+    CommonModule,
+    JwtModule, 
   ],
   controllers: [],
   providers: [],
