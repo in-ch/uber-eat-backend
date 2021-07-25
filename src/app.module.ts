@@ -40,6 +40,7 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
+      context: ({ req }) => ({user: req['user']}),  // 모든 resolver에 공유하도록 할 수 있음
     }),
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
