@@ -80,7 +80,7 @@ export class UserService {
     if (password) {
       user.password = password;
     }
-    return this.users.save(user);  // @beforeUpdate() 훅을 불러올 수 없으니 update()를 쓰지 않고 직접 js로 넣어줌.
+    return this.users.save(user);  // @beforeUpdate() 훅을 불러올 수 없으니 update()를 쓰지 않고 직접 js로 넣어줌. -> update는 단순히 db에 query만 보내고 entity를 불러오지 않으므로..
     // return this.users.update(userId, { ...editProfileInput} ); // {email,password}:editProfileInput 으로 보내면 password가 undefined로 되서 오류가 발생함. 
   }
 }
