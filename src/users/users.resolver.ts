@@ -9,6 +9,7 @@ import {
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './users.service';
+import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -60,5 +61,18 @@ export class UserResolver {
   // } 
   me(@AuthUser() authUser: User) {
     return authUser;
+  }
+
+  @UseGuards(AuthGuard)
+  @Mutation(_ => EditProfileOutput) 
+  async editProfile(@AuthUser() authUser: User, @Args('input') editProfileInput: EditProfileInput): Promise<EditProfileOutput> {
+    try{
+      await this.usersService.editProfile(authUser.id, editProfileInput);
+    } catch(error){
+      return {
+        ok:false,
+        error
+      }
+    }
   }
 }
