@@ -106,8 +106,8 @@ export class UserService {
       );
       if (verification) {
         verification.user.verified = true;
-        console.log(verification.user);
         this.users.save(verification.user);
+        this.verifications.delete(verification.id);
         return true;
       }
       throw new Error();
