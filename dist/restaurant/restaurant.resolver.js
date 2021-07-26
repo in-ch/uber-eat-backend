@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const auth_user_decorator_1 = require("../auth/auth-user.decorator");
+const role_decorator_1 = require("../auth/role.decorator");
 const user_entity_1 = require("../users/entities/user.entity");
 const createRestaurant_dto_1 = require("./dtos/createRestaurant.dto");
 const restaurants_service_1 = require("./restaurants.service");
@@ -27,7 +28,8 @@ let RestaurantResolver = class RestaurantResolver {
     }
 };
 __decorate([
-    graphql_1.Mutation(returns => createRestaurant_dto_1.CreateRestaurantOutput),
+    role_decorator_1.Role(['Owner']),
+    graphql_1.Mutation(_ => createRestaurant_dto_1.CreateRestaurantOutput),
     __param(0, auth_user_decorator_1.AuthUser()),
     __param(1, graphql_1.Args('input')),
     __metadata("design:type", Function),

@@ -11,6 +11,7 @@ import { User } from './entities/user.entity';
 import { UserService } from './users.service';
 import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
 import { VerifyEmailInput, VerifyEmailOutput } from './dtos/verify-email.dto';
+import { Role } from 'src/auth/role.decorator';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -50,21 +51,12 @@ export class UserResolver {
   }
 
   @Query(_ => User)
-  @UseGuards(AuthGuard)
-  // me(
-  //   @Context() context
-  // ) {
-  //   if(!context.user) {
-  //     return; 
-  //   } else {
-  //     return context.user;
-  //   }
-  // } 
+  @Role(['Any'])
   me(@AuthUser() authUser: User) {
     return authUser;
   }
 
-  @UseGuards(AuthGuard)
+  @Role(['Any'])
   @Mutation(_ => EditProfileOutput) 
   async editProfile(@AuthUser() authUser: User, @Args('input') editProfileInput: EditProfileInput): Promise<EditProfileOutput> {
     try{

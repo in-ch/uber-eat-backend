@@ -43,7 +43,7 @@ __decorate([
 ], Restaurant.prototype, "category", void 0);
 __decorate([
     graphql_1.Field(_ => user_entity_1.User),
-    typeorm_1.ManyToOne(_ => user_entity_1.User, user => user.restaurants),
+    typeorm_1.ManyToOne(_ => user_entity_1.User, user => user.restaurants, { onDelete: "CASCADE" }),
     __metadata("design:type", user_entity_1.User)
 ], Restaurant.prototype, "owner", void 0);
 Restaurant = __decorate([

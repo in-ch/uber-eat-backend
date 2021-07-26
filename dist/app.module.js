@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var AppModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
@@ -21,13 +22,13 @@ const mail_module_1 = require("./mail/mail.module");
 const restaurant_entity_1 = require("./restaurant/entities/restaurant.entity");
 const category_entity_1 = require("./restaurant/entities/category.entity");
 const restaurant_module_1 = require("./restaurant/restaurant.module");
-let AppModule = class AppModule {
+let AppModule = AppModule_1 = class AppModule {
     configure(consumer) {
         consumer.apply(jwt_middleware_1.JwtMiddleware)
             .forRoutes({ path: "/graphQL", method: common_1.RequestMethod.ALL });
     }
 };
-AppModule = __decorate([
+AppModule = AppModule_1 = __decorate([
     common_1.Module({
         imports: [
             config_1.ConfigModule.forRoot({
@@ -74,7 +75,8 @@ AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             mail_module_1.MailModule,
-            restaurant_module_1.RestaurantModule
+            restaurant_module_1.RestaurantModule,
+            AppModule_1
         ],
         controllers: [],
         providers: [],
