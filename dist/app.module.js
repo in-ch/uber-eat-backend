@@ -20,6 +20,7 @@ const verification_entity_1 = require("./users/entities/verification.entity");
 const mail_module_1 = require("./mail/mail.module");
 const restaurant_entity_1 = require("./restaurant/entities/restaurant.entity");
 const category_entity_1 = require("./restaurant/entities/category.entity");
+const restaurant_module_1 = require("./restaurant/restaurant.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(jwt_middleware_1.JwtMiddleware)
@@ -31,7 +32,7 @@ AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
+                envFilePath: process.env.NODE_ENV === 'dev' ? '.env.test' : '.env.test',
                 ignoreEnvFile: process.env.NODE_ENV === 'prod',
                 validationSchema: Joi.object({
                     NODE_ENV: Joi.string()
@@ -73,6 +74,7 @@ AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             mail_module_1.MailModule,
+            restaurant_module_1.RestaurantModule
         ],
         controllers: [],
         providers: [],

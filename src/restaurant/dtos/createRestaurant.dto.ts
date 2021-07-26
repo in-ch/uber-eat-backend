@@ -6,5 +6,4 @@ import { Restaurant } from '../entities/restaurant.entity';
 export class CreateRestaurantDto extends OmitType(
   Restaurant,
   ['id'],
-  InputType // inputType이라고 명시해주는 것이다
 ) {}
