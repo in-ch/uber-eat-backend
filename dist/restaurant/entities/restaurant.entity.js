@@ -13,14 +13,10 @@ exports.Restaurant = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
-let Restaurant = class Restaurant {
+const core_entity_1 = require("../../common/entities/core.entity");
+const category_entity_1 = require("./category.entity");
+let Restaurant = class Restaurant extends core_entity_1.CoreEntity {
 };
-__decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
-    graphql_1.Field(_ => Number),
-    class_validator_1.IsNumber(),
-    __metadata("design:type", Number)
-], Restaurant.prototype, "id", void 0);
 __decorate([
     graphql_1.Field(_ => String),
     typeorm_1.Column(),
@@ -28,18 +24,11 @@ __decorate([
     __metadata("design:type", String)
 ], Restaurant.prototype, "name", void 0);
 __decorate([
-    graphql_1.Field(_ => Boolean, { nullable: true }),
+    graphql_1.Field(_ => String),
     typeorm_1.Column(),
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], Restaurant.prototype, "isGood", void 0);
-__decorate([
-    graphql_1.Field(_ => Boolean, { defaultValue: true }),
-    typeorm_1.Column({ default: true }),
-    class_validator_1.IsBoolean(),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", Boolean)
-], Restaurant.prototype, "isVegan", void 0);
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], Restaurant.prototype, "coverImage", void 0);
 __decorate([
     graphql_1.Field(_ => String),
     typeorm_1.Column(),
@@ -47,17 +36,10 @@ __decorate([
     __metadata("design:type", String)
 ], Restaurant.prototype, "address", void 0);
 __decorate([
-    graphql_1.Field(_ => String),
-    typeorm_1.Column(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], Restaurant.prototype, "ownerName", void 0);
-__decorate([
-    graphql_1.Field(_ => String),
-    typeorm_1.Column(),
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], Restaurant.prototype, "categoryName", void 0);
+    graphql_1.Field(_ => category_entity_1.Category),
+    typeorm_1.ManyToOne(_ => category_entity_1.Category, categroy => categroy.id),
+    __metadata("design:type", category_entity_1.Category)
+], Restaurant.prototype, "category", void 0);
 Restaurant = __decorate([
     graphql_1.ObjectType(),
     typeorm_1.Entity()

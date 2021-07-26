@@ -8,7 +8,7 @@ import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
-import { IsEmail, IsEnum } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsString } from 'class-validator';
 
 enum UserRole {
   Client,
@@ -28,6 +28,7 @@ export class User extends CoreEntity {
   email: string;
 
   @Column({ select: false })
+  @IsString()
   @Field(type => String)
   password: string;
 
@@ -37,6 +38,7 @@ export class User extends CoreEntity {
   role: UserRole;
 
   @Column({ default: false })
+  @IsBoolean()
   @Field(type => Boolean)
   verified: boolean;
 

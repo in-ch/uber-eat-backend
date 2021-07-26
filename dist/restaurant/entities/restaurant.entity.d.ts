@@ -1,9 +1,8 @@
-export declare class Restaurant {
-    id: number;
+import { CoreEntity } from "src/common/entities/core.entity";
+import { Category } from "./category.entity";
+export declare class Restaurant extends CoreEntity {
     name: string;
-    isGood?: boolean;
-    isVegan: boolean;
+    coverImage: string;
     address: string;
-    ownerName: string;
-    categoryName: string;
+    category: Category;
 }

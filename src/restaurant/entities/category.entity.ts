@@ -1,12 +1,12 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { IsBoolean, IsNumber, IsOptional, IsString, Length } from 'class-validator';
 import { CoreEntity } from "src/common/entities/core.entity";
-import { Category } from "./category.entity";
+import { Restaurant } from "./restaurant.entity";
 
 @ObjectType()
 @Entity() // TypeORM이 DB에 저장할 수 있도록 하는 것임.
-export class Restaurant extends CoreEntity{
+export class Category extends CoreEntity{
     
     @Field(_ => String)
     @Column()
@@ -16,15 +16,10 @@ export class Restaurant extends CoreEntity{
     @Field(_ => String)
     @Column()
     @IsString()
-    coverImage: string;
+    coverImage: string;   // 카테고리 이미지 부분.
 
-    @Field(_=> String)
-    @Column()
-    @IsString()
-    address: string;
-
-    @Field(_ => Category)
-    @ManyToOne(_=> Category, categroy => categroy.id)
-    category: Category
+    @Field(_ => [Restaurant])
+    @OneToMany(_=> Restaurant, restaurant => restaurant.category)
+    restaurant: Restaurant[]
 
 }
